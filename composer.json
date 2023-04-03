@@ -1,0 +1,19 @@
+{
+ "name":"surveybuilderteams/SSQL",
+  "description":"A easy way to control and modify your SQL database using this simple PHP library.",
+  "keywords":["webpress", "php", "mysql"],
+  "license":"MIT",
+  "homepage": "https://github.com/surveybuilderteams/webpress",
+  "authors":[{
+    "name":"SurveyBuilder-Admin",
+    "email":"surveybuildersbot@gmail.com",
+    "role":"Developer"
+  }],
+  "support":{
+    "email":"surveybuildersbot@gmail.com"
+  },
+  "require":{
+      "php":">=7.4",
+      "mysql":"*"
+  }
+}
