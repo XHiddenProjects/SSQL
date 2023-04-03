@@ -14,6 +14,6 @@
   },
   "require":{
       "php":">=7.4",
-      "mysqljs/mysql":"*"
+      "mysqljs/mysql":">=2.*"
   }
 }
