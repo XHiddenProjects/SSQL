@@ -52,6 +52,8 @@ to close the connections:
 $ssql->close();
 ```
 
+***
+
 # Database
 
 ### checking database
@@ -113,6 +115,11 @@ $db->checkTable(string $tbname); //returns boolean
 To add more data use:
 ```php
 $db->addData(string $tbname, array $data, array $values); //return boolean
+
+/*
+to add multiple values do:
+[[array1],[array2],[array3]]
+*/
 ```
 
 ### selecting data
@@ -132,3 +139,10 @@ To update a data use:
 ```php
 $db->updateData(string $tbname, string $replacement, string $condition); //returns boolean
 ```
+
+***
+
+# Conditions & options
+
+- Conditions: `lastname="fred"`, `id=2`, `email="example@example.com"`,etc...
+- Options: `AUTO_INCREMENT`,`PRIMARY`,`KEY`, etc...
