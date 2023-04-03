@@ -1,5 +1,5 @@
 {
- "name":"surveybuilderteams/SSQL",
+ "name":"surveybuilderteams/ssql",
   "description":"A easy way to control and modify your SQL database using this simple PHP library.",
   "keywords":["webpress", "php", "mysql"],
   "license":"MIT",
