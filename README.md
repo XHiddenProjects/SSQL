@@ -40,7 +40,7 @@ $ssql->close();
 </html>
 ```
 
-### loading credital
+### loading credential
 this is the most imporant thing in order for this to work, your credentals must be active, use:
 ```php
 $ssql->setCredential('{servername}', '{username}', '{password}'); //return boolean
