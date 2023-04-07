@@ -7,6 +7,7 @@ First you have to load up the lib, by writting this:
 <?php 
 require_once('{basepath}/ssql.lib.php');
 $ssql = new SSQL();
+$ssql->style(); //loads stylesheet(place in head tag)
 ?>
 ```
 
