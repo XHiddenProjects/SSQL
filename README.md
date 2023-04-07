@@ -139,6 +139,51 @@ To update a data use:
 ```php
 $db->updateData(string $tbname, string $replacement, string $condition); //returns boolean
 ```
+***
+
+### permissions
+To create/replace permissions use:
+```php
+$ssql->givePerm(array $perm, string $tbname, array $username); //returns boolean
+```
+
+To remove permissions use:
+```php
+$ssql->dropPerm(array $perm,string $tbname, array $username); //returns boolean
+```
+***
+
+### accounts
+To create an account use:
+```php
+$ssql->makeUser(string $username, string $psw='', bool $checkExists=true ,array $options=[]); //returns boolean
+```
+
+To remove an account use:
+```php
+$ssql->dropUser(string $username); //returns boolean
+```
+
+***
+
+### Views
+to load a view use:
+```php
+echo $db->makeView(string $viewName, string $tbname, array $data, string $condition='', array $options=[]); //return string:table
+```
+
+to remove view use:
+```php
+$db->dropView(string $viewName); //returns boolean
+```
+
+***
+
+### Others
+Generate Password, use:
+```php
+$ssql->genPsw($salt=''); //returns string
+```
 
 ***
 
