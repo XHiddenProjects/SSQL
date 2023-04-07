@@ -7,7 +7,7 @@ First you have to load up the lib, by writting this:
 <?php 
 require_once('{basepath}/ssql.lib.php');
 $ssql = new SSQL();
-$ssql->style(); //loads stylesheet(place in head tag)
+$ssql->style($darkmode=true); //loads stylesheet(place in head tag)
 ?>
 ```
 
@@ -102,13 +102,13 @@ $db->selectData(string $tbname, array $sel, string $condition=''); //returns arr
 ### deleting data
 To delete an data use:
 ```php
-$db->dropData(string $tbname, string $condition); //returns boolean
+$db->dropData(string $tbname, string $condition=''); //returns boolean
 ```
 
 ### updating data
 To update a data use:
 ```php
-$db->updateData(string $tbname, string $replacement, string $condition); //returns boolean
+$db->updateData(string $tbname, string $replacement, string $condition=''); //returns boolean
 ```
 ***
 
