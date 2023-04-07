@@ -25,7 +25,7 @@ if($ssql->setCredential('localhost', 'root', '')){
 	$db->dropView('myView');
 	$ssql->makeUser('test', $ssql->genPsw('psw'));
 	$ssql->givePerm(['ALL'], '*', ['test']);
-	$ssql->remPerm(['ALL'], '*', ['test']);
+	$ssql->dropPerm(['ALL'], '*', ['test']);
 	$ssql->dropUser('test');
 	$ssql->close();	
 }

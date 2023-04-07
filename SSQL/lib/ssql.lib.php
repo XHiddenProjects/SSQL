@@ -209,7 +209,7 @@ class SSQL{
 			return false;
 		}
 	}
-	function remPerm(array $perm,string $tbname, array $username) : bool{
+	function dropPerm(array $perm,string $tbname, array $username) : bool{
 		$sql = 'REVOKE '.implode(',',$perm).' ON '.$this->db.'.'.strtolower($tbname).' FROM '.implode(',',array_map(function($i){return $i.'@'.$this->server;},$username));
 		if($this->conn->query($sql)){
 			return true;
