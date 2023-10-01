@@ -58,11 +58,18 @@ $ssql->selectDB(string $dbname);//return $this
 //or
 $db = $ssql->selectDB(string $dbname); //return $this
 ```
-
 ***
+**Note: you must have `$ssql->selectDB(string $dbname)` in a variable or use that to proceed on making the tables happen!, I used `$db=` for this example**
 
+# Import files
+```php
+# path to SQL file(.sql) and will automatically import all data to the data
+$db->import(string $filepath);
+```
+
+*** 
 # Tables
-**Note: you must have `$ssql->selectDB(string $dbname)` in a variable or use that to proceed on making the tables happen!**
+
 
 ### creating a table
 To create a table use:
