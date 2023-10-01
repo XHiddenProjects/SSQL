@@ -27,45 +27,11 @@ class SSQL{
 	}
 	function style($darkmode=true){
 		$this->dm = ($darkmode ? 'dark' : 'light');
-		$out= '<style>
-		.ssql-table{
-			border-collapse: collapse;
-			border-spacing: 0;
-			width: 100%;
-			display: table;
-			border: 1px solid #ccc;
-			margin: 20px 0;
-		}
-		.ssql-table th:first-child, .ssql-table td:first-child {
-			padding-left: 16px;
-		}
-		.ssql-table td, .ssql-table th {
-			padding: 8px 8px;
-			display: table-cell;
-			text-align: left;
-			vertical-align: top;
-		}
-		';
+		$out= '<style>.ssql-table{border-collapse:collapse;border-spacing:0;width:100%;display:table;border:1px solid #ccc;margin: 20px 0;}.ssql-table th:first-child,.ssql-table td:first-child{padding-left:16px;}.ssql-table td, .ssql-table th {padding:8px 8px;display:table-cell;text-align:left;vertical-align:top;}';
 		if($darkmode){
-			$out.='.ssql-table.dark tr:nth-child(odd) {
-			background-color: #1d2a35;
-			color: #ddd;
-		}
-		.ssql-table.dark tr:nth-child(even) {
-			background-color: #38444d;
-			color: #ddd;
-		}
-		.ssql-table.dark tr {
-			border-bottom: 1px solid #38444d;
-		}';
+			$out.='.ssql-table.dark tr:nth-child(odd){background-color:#1d2a35;color:#ddd;}.ssql-table.dark tr:nth-child(even){background-color:#38444d;color:#ddd;}.ssql-table.dark tr{border-bottom:1px solid #38444d;}';
 		}else{
-			$out.='.ssql-table.light tr:nth-child(odd) {
-			background-color: #ddd;
-			color: #1d2a35;
-			}
-			.ssql-table.light tr {
-				border-bottom: 1px solid #dddddd;
-			}';
+			$out.='.ssql-table.light tr:nth-child(odd){background-color:#ddd;color:#1d2a35;}.ssql-table.light tr{border-bottom:1px solid #dddddd;}';
 		}
 		$out.='</style>';
 		return $out;
@@ -141,6 +107,24 @@ class SSQL{
 		$this->conn->select_db(strtolower($dbname));
 		return $this;
 	}
+	# import
+	function import(string $filename){
+		$templine = '';
+		$lines = file($filename);
+		foreach ($lines as $line){
+			if(substr($line,0,2)=='--'||$line=='') continue;
+			$templine .= $line;
+			if (substr(trim($line), -1, 1) == ';')
+			{
+				if($this->conn->query($templine)){
+					$templine = '';
+				}else{
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 	# tables
 	function makeTable(string $tbname, array $items, array $types ,array $values, array $options) : bool{
 		if(count($items)!=count($types)||count($items)!=count($values)||count($items)!=count($options)){
@@ -170,6 +154,19 @@ class SSQL{
 			return false;
 		}	
 	}
+	function listTables() : array{
+		$sql = 'SHOW TABLES';
+		$row = [];
+		$results=$this->conn->query($sql);
+		if($results!==false&&$results->num_rows > 0){	
+			while($rows = $results->fetch_assoc()){
+					$row[] = $rows;
+				}
+		}else{
+			return false;
+		}
+		return $row;
+	}
 	function checkTable(string $tbname) : bool{
 		$sql = 'SELECT * FROM '.strtolower($tbname);
 		if($this->conn->query($sql)===TRUE){
@@ -178,11 +175,10 @@ class SSQL{
 			return false;
 		}
 	}
+	
 	function addData(string $tbname, array $data, array $values) : bool{
 		$setValues='';
-		for($i=0;$i<count($values);$i++){
-			$setValues.='('.implode(',',array_map(function($i){return "'".$i."'";}, $values[$i])).')'.($i<(count($values)-1) ? ',' : '');
-		}
+		$setValues='('.implode(',',array_map(function($i){return "'".$i."'";}, $values)).')';
 		$sql = 'INSERT INTO '.strtolower($tbname).' ('.implode(',',$data).') VALUES '.$setValues;
 		if($this->conn->query($sql)===TRUE){
 			return true;
@@ -191,7 +187,7 @@ class SSQL{
 			return false;
 		}
 	}
-	function selectData(string $tbname, array $sel, string $condition='', array $args=[], $returnArr=true) : array|string{
+	function selectData(string $tbname, array $sel, string $condition='', array $args=[], bool $returnArr=true) : array|string{
 		$row=[];
 		$sql = 'SELECT '.implode(',',$sel).' FROM '.strtolower($tbname).($condition!=='' ? ' '.$condition : '').' '.implode(' ',$args);
 		$results = $this->conn->query($sql);
@@ -201,8 +197,7 @@ class SSQL{
 				}
 			return $returnArr ? $row : $sql;
 		}else{
-			die(($this->conn->error ? 'Error: '.$this->conn->error : 'No Results'));
-			return $row;
+			return false;
 		}
 	}
 	function dropData(string $tbname, string $condition='') : bool{
