@@ -91,7 +91,6 @@ class SSQL{
 		$this->psw = filter_var($p, FILTER_SANITIZE_STRING);
 		$this->conn = new mysqli($this->server, $this->name, $this->psw);
 		if($this->conn->connect_error){
-			die('Failed to connect to SQL DB');
 			return false;
 		}else{
 			return true;
