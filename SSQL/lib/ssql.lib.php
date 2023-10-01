@@ -3,7 +3,7 @@
 --------info--------
 @Name: SSQL
 @Author: SurveyBuilderTeams
-@Version:1.0.1
+@Version:0.0.4
 @SQL: mySQL(phpMyAdmin) v5.2
 @Server type: MariaDB v10.4
 @Language: PHP v8.2
