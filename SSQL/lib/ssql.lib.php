@@ -2,7 +2,7 @@
 /*
 --------info--------
 @Name: SSQL
-@Author: SurveyBuilderTeams
+@Author: XHiddenProjects
 @Version:0.0.4
 @SQL: mySQL(phpMyAdmin) v5.2
 @Server type: MariaDB v10.4
