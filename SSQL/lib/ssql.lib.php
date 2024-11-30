@@ -3,7 +3,7 @@
 --------info--------
 @Name: SSQL
 @Author: XHiddenProjects
-@Version:0.0.4
+@Version: 0.0.5
 @SQL: mySQL(phpMyAdmin) v5.2
 @Server type: MariaDB v10.4
 @Language: PHP v8.2
@@ -21,7 +21,7 @@ class SSQL{
 		$this->server='';
 		$this->name='';
 		$this->psw='';
-		$this->conn='';
+		$this->conn;
 		$this->db='';
 		$this->dm = 'dark';
 	}
@@ -52,9 +52,9 @@ class SSQL{
 	}
 	
 	function setCredential(string $s, string $u, string $p) : bool{
-		$this->server = filter_var($s,FILTER_SANITIZE_STRING);
-		$this->name = filter_var($u, FILTER_SANITIZE_STRING);
-		$this->psw = filter_var($p, FILTER_SANITIZE_STRING);
+		$this->server = htmlspecialchars($s);
+		$this->name = htmlspecialchars($u);
+		$this->psw = htmlspecialchars($p);
 		$this->conn = new mysqli($this->server, $this->name, $this->psw);
 		if($this->conn->connect_error){
 			return false;
@@ -400,7 +400,5 @@ class SSQL{
 	function fullJoin(string $table1, string $table2, string $col1, string $col2, bool $outer=false) : string{
 		return 'FULL '.($outer ? 'OUTER ' : '').'JOIN '.strtolower($table2).' ON '.strtolower($table1).'.'.$col1.' = '.strtolower($table2).'.'.$col2;
 	}
-	
-
 }
 ?>
